@@ -20,14 +20,17 @@ public class Machine {
     }
     public void setTempo(int tempo) {
         arrangement.setTempo(tempo);
+        if (player != null) {
+            player.calculateWait();
+        }
     }
     public int getSubTempo() {
         return arrangement.getSubTempo();
     }
     public void setSubTempo(int subTempo) {
         arrangement.setSubTempo(subTempo);
-        for (Track track : tracks) {
-            track.refresh();
+        if (player != null) {
+            player.calculateWait();
         }
     }
     public int getLength() {
@@ -35,9 +38,6 @@ public class Machine {
     }
     public void setLength(int l) {
         arrangement.setLength(l);
-        for (Track track : tracks) {
-            track.refresh();
-        }
     }
     public void togglePart(int part, int beat, int subBeat) {
         arrangement.togglePart(part, beat, subBeat);

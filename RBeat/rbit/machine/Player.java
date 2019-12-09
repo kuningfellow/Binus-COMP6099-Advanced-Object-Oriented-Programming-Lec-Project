@@ -1,5 +1,6 @@
 package rbit.machine;
 
+// Plays the arrangement according to tempo
 class Player implements Runnable {
     Machine machine;
     int curBeat;
@@ -12,7 +13,6 @@ class Player implements Runnable {
         this.machine = machine;
         curBeat = curSubBeat = 0;
         calculateWait();
-        // releaser = new Releaser(machine);
         Thread t = new Thread(this);
         t.start();
     }
@@ -20,7 +20,6 @@ class Player implements Runnable {
     void calculateWait() {
         double tmp = (double) 1000.0 * 60.0 / (machine.arrangement.getTempo() * machine.arrangement.getSubTempo());
         wait = (long) tmp;
-        // System.out.println(wait);
     }
 
     void kill() {
@@ -31,25 +30,17 @@ class Player implements Runnable {
     @Override
     public void run() {
         while (!dead) {
-            // synchronized (machine) {
-                machine.trigger(curBeat, curSubBeat);
-                curSubBeat++;
-                if (curSubBeat >= machine.arrangement.getSubTempo()) {
-                    curSubBeat = 0;
-                    curBeat++;
-                }
-                if (curBeat >= machine.arrangement.getLength()) {
-                    curBeat = 0;
-                }
-                // machine.notify();
-                // try {
-                //     machine.wait();
-                // } catch (Exception e) {
-                //     e.printStackTrace();
-                // }
-            // }
+            machine.trigger(curBeat, curSubBeat);
+            curSubBeat++;
+            if (curSubBeat >= machine.arrangement.getSubTempo()) {
+                curSubBeat = 0;
+                curBeat++;
+            }
+            if (curBeat >= machine.arrangement.getLength()) {
+                curBeat = 0;
+            }
             try {
-                Thread.sleep(100);
+                Thread.sleep(wait);
             } catch (Exception e) {
                 e.printStackTrace();
             }

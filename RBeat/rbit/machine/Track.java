@@ -13,28 +13,31 @@ import rbit.arrangement.Part;
 class Track {
     Machine machine;
     Part part;
-    Clip sample;
+    Clip[] sample = new Clip[2];        // Alternating sample to prevent audio dropouts. Quite a neat trick
+    int bit;
     Track(Machine machine, Part part) {
         this.machine = machine;
         this.part = part;
+        this.bit = 0;
         try {
-            sample = AudioSystem.getClip();
-            sample.open(AudioSystem.getAudioInputStream(new File(part.getInstrument())));
+            sample[0] = AudioSystem.getClip();
+            sample[0].open(AudioSystem.getAudioInputStream(new File(part.getInstrument())));
+            sample[1] = AudioSystem.getClip();
+            sample[1].open(AudioSystem.getAudioInputStream(new File(part.getInstrument())));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    void refresh() {
-        return;
-    }
     void play(int beat, int subBeat) {
         if (part.shouldPlay(beat, subBeat)) {
-            sample.stop();
-            sample.setFramePosition(0);
-            sample.start();
+            sample[bit].stop();
+            sample[bit].setFramePosition(0);
+            bit ^= 1;           // Reverse Bit
+            sample[bit].start();
         }
     }
     void close() {
-        sample.close();
+        sample[0].close();
+        sample[1].close();
     }
 }
