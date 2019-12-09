@@ -3,15 +3,16 @@ package rbit.arrangement;
 import java.util.Vector;
 
 public class Arrangement {
+    public static final int maxSubTempo = 5;
     int beatCount;      // how many beats there are in the arrangement
     int tempo;          // in beats per minute
-    int subTempo;        // hom many sub beats in each beat
+    int subTempo;       // 2^subTempo beats in a beat
     Vector<Part> parts;
 
     public Arrangement() {
         tempo = 128;
         beatCount = 4;
-        subTempo = 4;
+        subTempo = 2;
         parts = new Vector<>();
     }
 
@@ -45,7 +46,7 @@ public class Arrangement {
         parts.remove(k);
     }
     public Part addPart(String instrument, int k) {
-        Part add = new Part(instrument, beatCount);
+        Part add = new Part(this, instrument, beatCount);
         parts.insertElementAt(add, k);
         return add;
     }

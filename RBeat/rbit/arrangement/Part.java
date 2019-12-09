@@ -3,10 +3,12 @@ package rbit.arrangement;
 import java.util.Vector;
 
 public class Part {
+    Arrangement arrangement;
     String instrument;
     double volume;
     Vector<Integer> pattern;        // vector of beats. subdivisions are stored as bitmasks
-    Part(String instrument, int beatCount) {
+    Part(Arrangement arrangement, String instrument, int beatCount) {
+        this.arrangement = arrangement;
         this.instrument = instrument;
         this.volume = 0;
         this.pattern = new Vector<>();
@@ -22,15 +24,18 @@ public class Part {
         }
     }
     
+    int getBit(int subBeat) {
+        return 1 << (subBeat * ( 1 << (Arrangement.maxSubTempo-arrangement.subTempo) ) );
+    }
     public String getInstrument() {
         return instrument;
     }
     public boolean shouldPlay(int beat, int subBeat) {
-        return (pattern.get(beat) & (1 << subBeat)) > 0;
+        return (pattern.get(beat) & getBit(subBeat)) > 0;
     }
     public void togglePattern(int beat, int subBeat) {
         int mask = pattern.get(beat);
-        mask ^= (1 << subBeat);
+        mask ^= getBit(subBeat);
         pattern.set(beat, mask);        // bit(beat) mask wkwkwkwk
     }
 }

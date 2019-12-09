@@ -6,7 +6,6 @@ class Player implements Runnable {
     int curBeat;
     int curSubBeat;
     long wait;
-    Releaser releaser;
     volatile boolean dead = false;
 
     Player(Machine machine) {
@@ -18,27 +17,26 @@ class Player implements Runnable {
     }
 
     void calculateWait() {
-        double tmp = (double) 1000.0 * 60.0 / (machine.arrangement.getTempo() * machine.arrangement.getSubTempo());
+        double tmp = (double) 1000.0*60.0 / ( machine.arrangement.getTempo() * (1<<machine.arrangement.getSubTempo()) );
         wait = (long) tmp;
     }
 
     void kill() {
         dead = true;
-        releaser.kill();
     }
 
     @Override
     public void run() {
         while (!dead) {
-            machine.trigger(curBeat, curSubBeat);
-            curSubBeat++;
-            if (curSubBeat >= machine.arrangement.getSubTempo()) {
+            if ( curSubBeat >= (1<<machine.arrangement.getSubTempo()) ) {
                 curSubBeat = 0;
                 curBeat++;
             }
             if (curBeat >= machine.arrangement.getLength()) {
                 curBeat = 0;
             }
+            machine.trigger(curBeat, curSubBeat);
+            curSubBeat++;
             try {
                 Thread.sleep(wait);
             } catch (Exception e) {

@@ -28,6 +28,7 @@ public class Machine {
         return arrangement.getSubTempo();
     }
     public void setSubTempo(int subTempo) {
+        subTempo = Math.max(0, Math.min(Arrangement.maxSubTempo, subTempo));
         arrangement.setSubTempo(subTempo);
         if (player != null) {
             player.calculateWait();
