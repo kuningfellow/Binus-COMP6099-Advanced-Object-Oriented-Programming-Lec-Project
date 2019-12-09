@@ -1,0 +1,8 @@
+E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\Main.java
+E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\machine\Machine.java
+E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\machine\tmp.java
+E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\machine\Player.java
+E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\machine\Releaser.java
+E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\machine\Track.java
+E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\arrangement\Arrangement.java
+E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\arrangement\Part.java
