@@ -14,13 +14,12 @@ import rbit.machine.Track;
 class TrackPanel extends JPanel {
     Editor editor;
     Track track;
-    // TrackInstrument instrument;
-    JPanel instrument;
+    TrackInstrument instrument;
     TrackPattern pattern;
     TrackPanel(Editor editor, Track track) {
         this.editor = editor;
         this.track = track;
-        instrument = new JPanel();
+        instrument = new TrackInstrument(this, track);
         pattern = new TrackPattern(track);
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -29,6 +28,8 @@ class TrackPanel extends JPanel {
         add(instrument, c);     // add the instrument panel
         c.gridx = 1;
         add(pattern, c);        // add the pattern panel
-        // setPreferredSize(new Dimension(900, 50));
+    }
+    void removeTrack() {
+        editor.removeTrack(this);
     }
 }

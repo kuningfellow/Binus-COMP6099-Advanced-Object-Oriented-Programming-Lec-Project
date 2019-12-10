@@ -24,6 +24,7 @@ class Main {
         machine.addTrack("rbit/samples/snares/snare4.wav", 2);
         machine.tracks.get(2).togglePattern(1, 0);
         machine.tracks.get(2).togglePattern(3, 0);
+        // machine.removeTrack(0);
         new Screen(machine);
     }
     public static void main(String[] args) {

@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import rbit.machine.Machine;
 
@@ -12,16 +13,9 @@ public class Screen extends JFrame {
         setTitle("RBit");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 800);
-        Editor editor = new Editor(machine);
+        Editor editor = new Editor(this, machine);
         add(editor);
-        setVisible(true);
         machine.play();
-        // try {
-        //     Thread.sleep(3000);
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
-        // // editor.remove();
-        // setVisible(true);
+        setVisible(true);
     }
 }

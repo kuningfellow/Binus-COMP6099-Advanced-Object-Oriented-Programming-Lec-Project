@@ -1,6 +1,7 @@
 package rbit.display;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -32,5 +33,17 @@ class PatternCell extends JPanel {
                 }
             }
         });
+    }
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        if (track.shouldPlay(beat, subBeat)) {
+            setBackground(Color.GREEN);
+        } else {
+            setBackground(Color.PINK);
+        }
+    }
+    void refresh() {
+        repaint();
     }
 }

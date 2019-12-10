@@ -1,5 +1,6 @@
 package rbit.display;
 
+import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.GridBagLayout;
@@ -15,18 +16,18 @@ import rbit.machine.Track;
 class TrackPattern extends JPanel {
     Track track;
     Vector<Vector<PatternCell> > pattern;
-    // GridBagConstraints c = new GridBagConstraints();
+    GridBagConstraints c = new GridBagConstraints();
     TrackPattern(Track track) {
         this.track = track;
         pattern = new Vector<>();
-        // setLayout(new GridBagLayout());
-        // c.gridy = 0;
-        // c.gridx = 0;
-        refresh();
+        setLayout(new GridBagLayout());
+        c.insets = new Insets(0, 5, 0, 0);
+        c.gridy = 0;
+        c.gridx = 0;
+        build();
     }
-
     // removes all and adds all PatternCell
-    void refresh() {
+    void build() {
         while (pattern.size() > 0) {
             Vector<PatternCell> beat = pattern.get(pattern.size() - 1);
             while (beat.size() > 0) {
@@ -35,13 +36,13 @@ class TrackPattern extends JPanel {
             }
             pattern.remove(pattern.size() - 1);
         }
-        // c.gridx = 0;
+        c.gridx = 0;
         for (int i = 0; i < track.getLength(); i++) {
             Vector<PatternCell> tmpV = new Vector<>();
             for (int j = 0; j < (1 << track.getSubTempo()); j++) {
                 PatternCell tmp = new PatternCell(track, i, j);
-                // c.gridx++;
-                add(tmp);
+                c.gridx++;
+                add(tmp, c);
                 tmpV.add(tmp);
             }
             pattern.add(tmpV);

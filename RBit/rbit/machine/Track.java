@@ -27,6 +27,9 @@ public class Track {
         }
     }
 
+    public String getInstrument() {
+        return part.getInstrument();
+    }
     public int getLength() {
         return machine.getLength();
     }

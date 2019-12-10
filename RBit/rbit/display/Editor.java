@@ -13,23 +13,30 @@ import rbit.machine.Track;
 import rbit.machine.Machine;
 
 class Editor extends JPanel {
+    Screen screen;
+    Machine machine;
     Vector<TrackPanel> trackPanels;
-    Editor(Machine machine) {
+    Editor(Screen screen, Machine machine) {
+        this.screen = screen;
+        this.machine = machine;
         trackPanels = new Vector<>();
-        // setPreferredSize(new Dimension(800, 500));
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        // c.insets = new Insets(5, 0, 0, 0);
-        c.gridx = 3;
+        c.gridx = 0;
         c.gridy = 0;
-        // setSize(800, 500);
         for (int i = 0; i < machine.tracks.size(); i++) {
-            c.gridy = i;
-            add(new TrackPanel(this, machine.tracks.get(i)), c);
+            trackPanels.add(new TrackPanel(this, machine.tracks.get(i)));
         }
-        // for (int i = 0; i < trackPanels.size(); i++) {
-        //     c.gridy = i;
-        //     add(trackPanels.get(i), c);
-        // }
+        for (int i = 0; i < trackPanels.size(); i++) {
+            c.gridy = i;
+            add(trackPanels.get(i), c);
+        }
+    }
+    void removeTrack(TrackPanel trackPanel) {
+        machine.removeTrack(trackPanels.indexOf(trackPanel));   // buang dari machine
+        remove(trackPanel);                                     // buang dari JPanel
+        trackPanels.remove(trackPanel);                         // buang dari trackPanels
+        revalidate();
+        repaint();
     }
 }
