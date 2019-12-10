@@ -17,5 +17,12 @@ public class Screen extends JFrame {
         add(editor);
         machine.play();
         setVisible(true);
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        editor.setLength(8);
+        System.out.println("ok?");
     }
 }

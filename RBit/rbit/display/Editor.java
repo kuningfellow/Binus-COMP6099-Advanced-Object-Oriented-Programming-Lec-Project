@@ -39,4 +39,12 @@ class Editor extends JPanel {
         revalidate();
         repaint();
     }
+    void setLength(int length) {
+        machine.setLength(length);
+        for (TrackPanel track : trackPanels) {
+            track.rebuild();
+        }
+        revalidate();
+        repaint();
+    }
 }

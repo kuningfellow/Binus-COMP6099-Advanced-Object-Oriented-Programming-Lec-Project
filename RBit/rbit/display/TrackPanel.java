@@ -29,6 +29,9 @@ class TrackPanel extends JPanel {
         c.gridx = 1;
         add(pattern, c);        // add the pattern panel
     }
+    void rebuild() {
+        pattern.build();
+    }
     void removeTrack() {
         editor.removeTrack(this);
     }
