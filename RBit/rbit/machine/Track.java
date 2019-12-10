@@ -6,11 +6,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-import java.util.Vector;
-
 import rbit.arrangement.Part;
 
-class Track {
+public class Track {
     Machine machine;
     Part part;
     Clip[] sample = new Clip[2];        // Alternating sample to prevent audio dropouts. Quite a neat trick
@@ -28,6 +26,20 @@ class Track {
             e.printStackTrace();
         }
     }
+
+    public int getLength() {
+        return machine.getLength();
+    }
+    public int getSubTempo() {
+        return machine.getSubTempo();
+    }
+    public boolean togglePattern(int beat, int subBeat) {
+        return part.togglePattern(beat, subBeat);
+    }
+    public boolean shouldPlay(int beat, int subBeat) {
+        return part.shouldPlay(beat, subBeat);
+    }
+
     void play(int beat, int subBeat) {
         if (part.shouldPlay(beat, subBeat)) {
             sample[bit].stop();

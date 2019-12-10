@@ -6,7 +6,7 @@ import rbit.arrangement.Arrangement;
 
 public class Machine {
     Arrangement arrangement;
-    Vector<Track> tracks;
+    public Vector<Track> tracks;
     Player player;
 
     public Machine() {
@@ -39,9 +39,6 @@ public class Machine {
     }
     public void setLength(int l) {
         arrangement.setLength(l);
-    }
-    public void togglePart(int part, int beat, int subBeat) {
-        arrangement.togglePart(part, beat, subBeat);
     }
 
     public void removeTrack(int k) {

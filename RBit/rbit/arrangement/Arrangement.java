@@ -38,10 +38,6 @@ public class Arrangement {
         }
     }
 
-    public void togglePart(int part, int beat, int subBeat) {
-        parts.get(part).togglePattern(beat, subBeat);
-    }
-
     public void removePart(int k) {
         parts.remove(k);
     }

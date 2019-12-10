@@ -1,6 +1,11 @@
-E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\Main.java
-E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\machine\Machine.java
-E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\machine\Player.java
-E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\machine\Track.java
-E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\arrangement\Arrangement.java
-E:\Kelly\Kuliah\ProyekAOOP\RBeat\rbit\arrangement\Part.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\Main.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\Test.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\arrangement\Arrangement.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\arrangement\Part.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\machine\Machine.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\machine\Player.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\machine\Track.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\display\Screen.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\display\TrackPanel.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\display\Editor.java
+F:\Kelly\Kuliah\Binus-COMP6099-Advanced-Object-Oriented-Programming-Lec-Project\RBit\rbit\display\TrackPattern.java

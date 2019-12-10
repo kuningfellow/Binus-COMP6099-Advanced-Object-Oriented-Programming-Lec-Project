@@ -33,9 +33,10 @@ public class Part {
     public boolean shouldPlay(int beat, int subBeat) {
         return (pattern.get(beat) & getBit(subBeat)) > 0;
     }
-    public void togglePattern(int beat, int subBeat) {
+    public boolean togglePattern(int beat, int subBeat) {
         int mask = pattern.get(beat);
         mask ^= getBit(subBeat);
         pattern.set(beat, mask);        // bit(beat) mask wkwkwkwk
+        return shouldPlay(beat, subBeat);
     }
 }
