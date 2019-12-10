@@ -2,6 +2,8 @@ package rbit.display;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 import javax.swing.JPanel;
 
@@ -9,12 +11,17 @@ import java.util.Vector;
 
 import rbit.machine.Track;
 
+// Contains pattern of a track
 class TrackPattern extends JPanel {
     Track track;
     Vector<Vector<PatternCell> > pattern;
+    // GridBagConstraints c = new GridBagConstraints();
     TrackPattern(Track track) {
         this.track = track;
         pattern = new Vector<>();
+        // setLayout(new GridBagLayout());
+        // c.gridy = 0;
+        // c.gridx = 0;
         refresh();
     }
 
@@ -28,15 +35,15 @@ class TrackPattern extends JPanel {
             }
             pattern.remove(pattern.size() - 1);
         }
+        // c.gridx = 0;
         for (int i = 0; i < track.getLength(); i++) {
             Vector<PatternCell> tmpV = new Vector<>();
             for (int j = 0; j < (1 << track.getSubTempo()); j++) {
-                System.out.println("add " + i + "." + j);
                 PatternCell tmp = new PatternCell(track, i, j);
+                // c.gridx++;
                 add(tmp);
                 tmpV.add(tmp);
             }
-            System.out.println("");
             pattern.add(tmpV);
         }
     }

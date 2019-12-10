@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import rbit.machine.Track;
 
+// Single graphical track beat
 class PatternCell extends JPanel {
     Track track;
     int beat, subBeat;
