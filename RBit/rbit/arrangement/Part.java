@@ -27,6 +27,16 @@ public class Part {
     int getBit(int subBeat) {
         return 1 << (subBeat * ( 1 << (Arrangement.maxSubTempo-arrangement.subTempo) ) );
     }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+    public double getVolume() {
+        return this.volume;
+    }
+    public void setInstrument(String instrument) {
+        this.instrument = instrument;
+    }
     public String getInstrument() {
         return instrument;
     }

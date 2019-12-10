@@ -5,6 +5,7 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 import rbit.arrangement.Part;
 
@@ -41,6 +42,18 @@ public class Track {
     }
     public boolean shouldPlay(int beat, int subBeat) {
         return part.shouldPlay(beat, subBeat);
+    }
+
+    public double getVolume() {
+        return part.getVolume();
+    }
+    public float setVolume(float volume) {
+        part.setVolume(volume);
+        FloatControl gainControl = (FloatControl) sample[0].getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(volume);
+        gainControl = (FloatControl) sample[1].getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(volume);
+        return volume;
     }
 
     void play(int beat, int subBeat) {

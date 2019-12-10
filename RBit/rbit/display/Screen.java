@@ -12,17 +12,17 @@ public class Screen extends JFrame {
     public Screen(Machine machine) {
         setTitle("RBit");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 800);
+        setSize(1500, 800);
         Editor editor = new Editor(this, machine);
         add(editor);
         machine.play();
         setVisible(true);
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        editor.setLength(8);
-        System.out.println("ok?");
+        // try {
+        //     Thread.sleep(2000);
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
+        // editor.setLength(8);
+        // System.out.println("ok?");
     }
 }
