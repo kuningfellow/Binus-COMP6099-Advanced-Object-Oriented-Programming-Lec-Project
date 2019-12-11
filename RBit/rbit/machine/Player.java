@@ -43,12 +43,6 @@ class Player implements Runnable {
                 }
                 machine.trigger(curBeat, curSubBeat);
                 curSubBeat++;
-                machine.notify();
-                try {
-                    machine.wait();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         }
     }

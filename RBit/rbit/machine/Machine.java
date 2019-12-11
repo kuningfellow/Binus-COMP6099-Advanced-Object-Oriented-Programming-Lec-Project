@@ -8,7 +8,6 @@ public class Machine {
     Arrangement arrangement;
     public Vector<Track> tracks;
     Player player;
-    Releaser releaser;
 
     public Machine() {
         arrangement = new Arrangement();
@@ -69,15 +68,12 @@ public class Machine {
     public void play() {
         if (player == null) {
             player = new Player(this);
-            releaser = new Releaser(this);
         }
     }
     public void stop() {
         if (player != null) {
             player.kill();
-            releaser.kill();
             player = null;
-            releaser = null;
         }
     }
 }
