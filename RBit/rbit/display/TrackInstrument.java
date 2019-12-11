@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
 
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -24,10 +27,13 @@ class TrackInstrument extends JPanel {
     JLabel volumeIndicator;
     Track track;
     TrackInstrument(TrackPanel trackPanel, Track track) {
+        setPreferredSize(new Dimension(100, 50));
         this.trackPanel = trackPanel;
         this.track = track;
-        setPreferredSize(new Dimension(200, 50));
-        setSize(100, 50);
+        setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = c.gridy = 0;
+        // setSize(100, 50);
         this.volume = new JSlider(JSlider.HORIZONTAL, 3, 125, 100);
         this.volume.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -35,12 +41,19 @@ class TrackInstrument extends JPanel {
             }
         });
         this.volumeIndicator = new JLabel(String.format("%.2f", track.getVolume()) + " dB");
-        add(volumeIndicator);
-        add(volume);
+        JPanel tmp = new JPanel();
+        tmp.setLayout(new BorderLayout());
+        tmp.setPreferredSize(new Dimension(100, 20));
+        tmp.add(volume);
+        add(tmp, c);
+        c.gridy = 1;
+        add(volumeIndicator, c);
         setBackground(Color.RED);
 
         addMouseListener(new MouseAdapter(){
             public void mousePressed(MouseEvent e) {
+                // track.close();
+                // track.setInstrument("rbit/samples/toms/Tom Hi 606.wav");
                 trackPanel.removeTrack();
             }
         });

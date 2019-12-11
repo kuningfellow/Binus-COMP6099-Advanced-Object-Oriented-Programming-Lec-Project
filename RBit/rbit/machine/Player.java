@@ -28,19 +28,27 @@ class Player implements Runnable {
     @Override
     public void run() {
         while (!dead) {
-            if ( curSubBeat >= (1<<machine.arrangement.getSubTempo()) ) {
-                curSubBeat = 0;
-                curBeat++;
-            }
-            if (curBeat >= machine.arrangement.getLength()) {
-                curBeat = 0;
-            }
-            machine.trigger(curBeat, curSubBeat);
-            curSubBeat++;
-            try {
-                Thread.sleep(wait);
-            } catch (Exception e) {
-                e.printStackTrace();
+            synchronized (machine) {
+                try {
+                    Thread.sleep(wait);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if ( curSubBeat >= (1<<machine.arrangement.getSubTempo()) ) {
+                    curSubBeat = 0;
+                    curBeat++;
+                }
+                if (curBeat >= machine.arrangement.getLength()) {
+                    curBeat = 0;
+                }
+                machine.trigger(curBeat, curSubBeat);
+                curSubBeat++;
+                machine.notify();
+                try {
+                    machine.wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

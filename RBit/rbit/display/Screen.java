@@ -15,13 +15,15 @@ public class Screen extends JFrame {
         setSize(1500, 800);
         Editor editor = new Editor(this, machine);
         add(editor);
-        machine.play();
         setVisible(true);
+        machine.play();
         // try {
-        //     Thread.sleep(2000);
+        //     Thread.sleep(3000);
         // } catch (Exception e) {
         //     e.printStackTrace();
         // }
+        // System.out.println("stop");
+        // machine.tracks.get(0).close();
         // editor.setLength(8);
         // System.out.println("ok?");
     }

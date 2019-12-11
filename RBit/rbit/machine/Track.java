@@ -18,16 +18,24 @@ public class Track {
         this.machine = machine;
         this.part = part;
         this.bit = 0;
-        try {
-            sample[0] = AudioSystem.getClip();
-            sample[0].open(AudioSystem.getAudioInputStream(new File(part.getInstrument())));
-            sample[1] = AudioSystem.getClip();
-            sample[1].open(AudioSystem.getAudioInputStream(new File(part.getInstrument())));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        setInstrument(part.getInstrument());
     }
 
+    public void setInstrument(String instrument) {
+        synchronized (machine) {
+            close();
+            try {
+                sample[0] = AudioSystem.getClip();
+                sample[0].open(AudioSystem.getAudioInputStream(new File(instrument)));
+                sample[1] = AudioSystem.getClip();
+                sample[1].open(AudioSystem.getAudioInputStream(new File(instrument)));
+                part.setInstrument(instrument);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            machine.notify();
+        }
+    }
     public String getInstrument() {
         return part.getInstrument();
     }
@@ -57,7 +65,7 @@ public class Track {
     }
 
     void play(int beat, int subBeat) {
-        if (part.shouldPlay(beat, subBeat)) {
+        if (sample[0] != null && sample[1] != null && part.shouldPlay(beat, subBeat)) {
             sample[bit].stop();
             sample[bit].setFramePosition(0);
             bit ^= 1;           // Reverse Bit
@@ -65,7 +73,14 @@ public class Track {
         }
     }
     void close() {
-        sample[0].close();
-        sample[1].close();
+        if (sample[0] != null) {
+            sample[0].stop();
+            sample[0].close();
+        }
+        if (sample[1] != null) {
+            sample[1].stop();
+            sample[1].close();
+        }
+        sample[0] = sample[1] = null;
     }
 }

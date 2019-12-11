@@ -8,6 +8,7 @@ public class Machine {
     Arrangement arrangement;
     public Vector<Track> tracks;
     Player player;
+    Releaser releaser;
 
     public Machine() {
         arrangement = new Arrangement();
@@ -38,34 +39,49 @@ public class Machine {
         return arrangement.getLength();
     }
     public void setLength(int l) {
-        arrangement.setLength(l);
+        synchronized (this) {
+            arrangement.setLength(l);
+            this.notify();
+        }
     }
 
     public void removeTrack(int k) {
-        tracks.get(k).close();       // to prevent memory leak
-        tracks.remove(k);
-        arrangement.removePart(k);
+        synchronized (this) {
+            tracks.get(k).close();       // to prevent memory leak
+            tracks.remove(k);
+            arrangement.removePart(k);
+            this.notify();
+        }
     }
     public void addTrack(String instrument, int k) {
-        k = Math.max(0, Math.min(tracks.size(), k));
-        tracks.insertElementAt(new Track(this, arrangement.addPart(instrument, k)), k);
+        synchronized (this) {
+            k = Math.max(0, Math.min(tracks.size(), k));
+            tracks.insertElementAt(new Track(this, arrangement.addPart(instrument, k)), k);
+            this.notify();
+        }
     }
 
     void trigger(int beat, int subBeat) {
-        for (int i = 0; i < tracks.size(); i++) {
-            tracks.get(i).play(beat, subBeat);
+        synchronized (this) {
+            for (int i = 0; i < tracks.size(); i++) {
+                tracks.get(i).play(beat, subBeat);
+            }
+            this.notify();
         }
     }
 
     public void play() {
         if (player == null) {
             player = new Player(this);
+            releaser = new Releaser(this);
         }
     }
     public void stop() {
         if (player != null) {
             player.kill();
+            releaser.kill();
             player = null;
+            releaser = null;
         }
     }
 }
