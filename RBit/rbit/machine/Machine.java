@@ -41,7 +41,6 @@ public class Machine {
     public void setLength(int l) {
         synchronized (this) {
             arrangement.setLength(l);
-            this.notify();
         }
     }
 
@@ -50,14 +49,12 @@ public class Machine {
             tracks.get(k).close();       // to prevent memory leak
             tracks.remove(k);
             arrangement.removePart(k);
-            this.notify();
         }
     }
     public void addTrack(String instrument, int k) {
         synchronized (this) {
             k = Math.max(0, Math.min(tracks.size(), k));
             tracks.insertElementAt(new Track(this, arrangement.addPart(instrument, k)), k);
-            this.notify();
         }
     }
 
@@ -66,7 +63,6 @@ public class Machine {
             for (int i = 0; i < tracks.size(); i++) {
                 tracks.get(i).play(beat, subBeat);
             }
-            this.notify();
         }
     }
 

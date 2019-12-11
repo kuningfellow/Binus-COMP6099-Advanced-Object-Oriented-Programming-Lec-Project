@@ -28,12 +28,12 @@ class Player implements Runnable {
     @Override
     public void run() {
         while (!dead) {
+            try {
+                Thread.sleep(wait);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             synchronized (machine) {
-                try {
-                    Thread.sleep(wait);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 if ( curSubBeat >= (1<<machine.arrangement.getSubTempo()) ) {
                     curSubBeat = 0;
                     curBeat++;

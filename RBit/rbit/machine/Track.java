@@ -33,7 +33,6 @@ public class Track {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            machine.notify();
         }
     }
     public String getInstrument() {
