@@ -12,10 +12,12 @@ import rbit.machine.Track;
 
 // Single graphical track beat
 class PatternCell extends JPanel {
+    TrackPattern trackPattern;
     Track track;
     int beat, subBeat;
-    PatternCell(Track track, int beat, int subBeat) {
-        setPreferredSize(new Dimension((256 - 32) / (1 << track.getSubTempo()), 50));
+    PatternCell(TrackPattern trackPattern, Track track, int beat, int subBeat) {
+        setPreferredSize(new Dimension((256 - 32) / (1 << track.getSubTempo()), trackPattern.editor.trackHeight));
+        this.trackPattern = trackPattern;
         this.track = track;
         this.beat = beat;
         this.subBeat = subBeat;

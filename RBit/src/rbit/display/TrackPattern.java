@@ -14,9 +14,11 @@ import rbit.machine.Track;
 
 // Contains pattern of a track
 class TrackPattern extends JPanel {
+    Editor editor;
     Track track;
     Vector<Vector<PatternCell> > pattern;
-    TrackPattern(Track track) {
+    TrackPattern(Editor editor, Track track) {
+        this.editor = editor;
         this.track = track;
         pattern = new Vector<>();
         setLayout(new GridBagLayout());
@@ -40,7 +42,7 @@ class TrackPattern extends JPanel {
         for (int i = 0; i < track.getLength(); i++) {
             Vector<PatternCell> tmpV = new Vector<>();
             for (int j = 0; j < (1 << track.getSubTempo()); j++) {
-                PatternCell tmp = new PatternCell(track, i, j);
+                PatternCell tmp = new PatternCell(this, track, i, j);
                 c.gridx++;
                 add(tmp, c);
                 tmpV.add(tmp);

@@ -20,7 +20,7 @@ class TrackPanel extends JPanel {
         this.editor = editor;
         this.track = track;
         instrument = new TrackInstrument(this, track);
-        pattern = new TrackPattern(track);
+        pattern = new TrackPattern(editor, track);
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         // c.insets = new Insets(5, 0, 0, 0);

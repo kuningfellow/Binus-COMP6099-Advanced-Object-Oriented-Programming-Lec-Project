@@ -13,29 +13,35 @@ import java.util.Vector;
 import rbit.machine.Machine;
 
 class Editor extends JPanel {
+    final int trackHeight = 50;
     Screen screen;
     Machine machine;
     Vector<TrackPanel> trackPanels;
     JPanel instruments;
     JPanel patterns;
     JScrollPane scrollPane;
+    BeatGuide beatGuide;
     Editor(Screen screen, Machine machine) {
         this.screen = screen;
         this.machine = machine;
+        
         
         // initializes tracks
         trackPanels = new Vector<>();
         for (int i = 0; i < machine.tracks.size(); i++) {
             trackPanels.add(new TrackPanel(this, machine.tracks.get(i)));
         }
-
+        
         // initializes panels
+        beatGuide = new BeatGuide(this);
         instruments = new JPanel();
         instruments.setLayout(new GridBagLayout());
         patterns = new JPanel();
         patterns.setLayout(new GridBagLayout());
         scrollPane = new JScrollPane(patterns);
         scrollPane.setPreferredSize(new Dimension(800, 400));
+        scrollPane.setRowHeaderView(instruments);
+        scrollPane.setColumnHeaderView(beatGuide);
 
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -63,6 +69,7 @@ class Editor extends JPanel {
         for (TrackPanel track : trackPanels) {
             track.rebuild();
         }
+        beatGuide.rebuild();
         revalidate();
         repaint();
     }
@@ -71,10 +78,11 @@ class Editor extends JPanel {
         for (TrackPanel track : trackPanels) {
             track.rebuild();
         }
+        beatGuide.rebuild();
         revalidate();
         repaint();
     }
-
+    
     // fills editor scrollable pane with tracks
     void fillEditorPane() {
         GridBagConstraints c = new GridBagConstraints();
@@ -87,6 +95,5 @@ class Editor extends JPanel {
             instruments.add(trackPanels.get(i).instrument, c);
             patterns.add(trackPanels.get(i).pattern, c);
         }
-        scrollPane.setRowHeaderView(instruments);
     }
 }

@@ -9,7 +9,7 @@ class Main {
         machine.setTempo(128);
         machine.setSubTempo(2);
         // machine.setLength(8);
-        machine.setLength(16);
+        machine.setLength(4);
         machine.addTrack("src/rbit/samples/kicks/kick2.wav", 0);
         machine.tracks.get(0).togglePattern(0, 0);
         machine.tracks.get(0).togglePattern(1, 0);
