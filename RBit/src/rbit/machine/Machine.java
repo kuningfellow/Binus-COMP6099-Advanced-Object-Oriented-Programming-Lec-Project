@@ -24,14 +24,19 @@ public class Machine {
             player.calculateWait();
         }
     }
+    public int getMaxSubTempo() {
+        return arrangement.maxSubTempo;
+    }
     public int getSubTempo() {
         return arrangement.getSubTempo();
     }
     public void setSubTempo(int subTempo) {
-        subTempo = Math.max(0, Math.min(Arrangement.maxSubTempo, subTempo));
-        arrangement.setSubTempo(subTempo);
-        if (player != null) {
-            player.calculateWait();
+        synchronized (this) {
+            subTempo = Math.max(0, Math.min(arrangement.maxSubTempo, subTempo));
+            arrangement.setSubTempo(subTempo);
+            if (player != null) {
+                player.calculateWait();
+            }
         }
     }
     public int getLength() {
@@ -50,10 +55,14 @@ public class Machine {
             arrangement.removePart(k);
         }
     }
-    public void addTrack(String instrument, int k) {
+
+    // adds new track to the kth index
+    public Track addTrack(String instrument, int k) {
         synchronized (this) {
             k = Math.max(0, Math.min(tracks.size(), k));
-            tracks.insertElementAt(new Track(this, arrangement.addPart(instrument, k)), k);
+            Track ret = new Track(this, arrangement.addPart(instrument, k));
+            tracks.insertElementAt(ret, k);
+            return ret;
         }
     }
 

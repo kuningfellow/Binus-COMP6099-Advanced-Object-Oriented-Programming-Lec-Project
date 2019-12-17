@@ -16,23 +16,23 @@ import rbit.machine.Track;
 class TrackPattern extends JPanel {
     Track track;
     Vector<Vector<PatternCell> > pattern;
-    GridBagConstraints c = new GridBagConstraints();
     TrackPattern(Track track) {
         this.track = track;
         pattern = new Vector<>();
         setLayout(new GridBagLayout());
-        c.insets = new Insets(0, 5, 0, 0);
-        c.gridy = 0;
-        c.gridx = 0;
         build();
     }
     // removes all and adds all PatternCell
     void build() {
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(0, 0, 0, 32 / (1 << track.getSubTempo()));
+        c.gridy = 0;
+        c.gridx = 0;
         while (pattern.size() > 0) {
             Vector<PatternCell> beat = pattern.get(pattern.size() - 1);
             while (beat.size() > 0) {
-                remove(beat.get(beat.size() - 1));      // remove JPanel from this.JPanel
-                beat.remove(beat.size() - 1);           // remove JPanel from pattern
+                remove(beat.get(beat.size() - 1));      // remove PatternCell from this.JPanel
+                beat.remove(beat.size() - 1);           // remove PatternCell from pattern
             }
             pattern.remove(pattern.size() - 1);
         }

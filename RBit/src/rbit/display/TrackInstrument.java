@@ -54,7 +54,9 @@ class TrackInstrument extends JPanel {
             public void mousePressed(MouseEvent e) {
                 // track.close();
                 // track.setInstrument("rbit/samples/toms/Tom Hi 606.wav");
-                trackPanel.removeTrack();
+                // trackPanel.removeTrack();
+                trackPanel.editor.setSubTempo(trackPanel.editor.trackPanels.indexOf(trackPanel) + 1);
+                // trackPanel.editor.addTrack("none", 1);
             }
         });
     }

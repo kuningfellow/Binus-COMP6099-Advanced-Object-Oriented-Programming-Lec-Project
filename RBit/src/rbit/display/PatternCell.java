@@ -15,7 +15,7 @@ class PatternCell extends JPanel {
     Track track;
     int beat, subBeat;
     PatternCell(Track track, int beat, int subBeat) {
-        setPreferredSize(new Dimension(50, 50));
+        setPreferredSize(new Dimension((256 - 32) / (1 << track.getSubTempo()), 50));
         this.track = track;
         this.beat = beat;
         this.subBeat = subBeat;

@@ -25,7 +25,7 @@ public class Part {
     }
     
     int getBit(int subBeat) {
-        return 1 << (subBeat * ( 1 << (Arrangement.maxSubTempo-arrangement.subTempo) ) );
+        return 1 << (subBeat * ( 1 << (arrangement.maxSubTempo-arrangement.subTempo) ) );
     }
 
     public void setVolume(double volume) {

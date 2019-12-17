@@ -41,6 +41,9 @@ public class Track {
     public int getLength() {
         return machine.getLength();
     }
+    public int getMaxSubTempo() {
+        return machine.getMaxSubTempo();
+    }
     public int getSubTempo() {
         return machine.getSubTempo();
     }
