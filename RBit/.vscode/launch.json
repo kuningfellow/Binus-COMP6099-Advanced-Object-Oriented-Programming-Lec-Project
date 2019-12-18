@@ -16,13 +16,6 @@
             "request": "launch",
             "mainClass": "rbit.Main",
             "projectName": "RBit"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-Test<RBit>",
-            "request": "launch",
-            "mainClass": "rbit.Test",
-            "projectName": "RBit"
         }
     ]
 }

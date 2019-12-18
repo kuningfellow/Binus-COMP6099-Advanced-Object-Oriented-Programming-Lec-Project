@@ -44,7 +44,7 @@ public class Session extends JPanel {
         this.play = new JButton("Play");
         this.play.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                editor.play();
+                editor.play(editor.beatGuide.startBeat, editor.beatGuide.startSubBeat);
             }
         });
 

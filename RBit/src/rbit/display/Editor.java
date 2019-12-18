@@ -50,8 +50,8 @@ class Editor extends JPanel {
         fillEditorPane();
     }
 
-    void play() {
-        machine.play();
+    void play(int beat, int subBeat) {
+        machine.play(beat, subBeat);
     }
     void stop() {
         machine.stop();

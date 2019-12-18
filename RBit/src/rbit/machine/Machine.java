@@ -74,9 +74,9 @@ public class Machine {
         }
     }
 
-    public void play() {
+    public void play(int beat, int subBeat) {
         if (player == null) {
-            player = new Player(this);
+            player = new Player(this, beat, subBeat);
         }
     }
     public void stop() {

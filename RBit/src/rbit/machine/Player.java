@@ -8,9 +8,10 @@ class Player implements Runnable {
     long wait;
     volatile boolean dead = false;
 
-    Player(Machine machine) {
+    Player(Machine machine, int startBeat, int startSubBeat) {
         this.machine = machine;
-        curBeat = curSubBeat = 0;
+        this.curBeat = startBeat;
+        this.curSubBeat = startSubBeat;
         calculateWait();
         Thread t = new Thread(this);
         t.start();
@@ -41,7 +42,9 @@ class Player implements Runnable {
                 if (curBeat >= machine.arrangement.getLength()) {
                     curBeat = 0;
                 }
-                machine.trigger(curBeat, curSubBeat);
+                if (curBeat < machine.arrangement.getLength()) {
+                    machine.trigger(curBeat, curSubBeat);
+                }
                 curSubBeat++;
             }
         }
