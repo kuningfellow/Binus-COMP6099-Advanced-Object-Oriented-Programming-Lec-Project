@@ -1,7 +1,6 @@
 package rbit.display;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,11 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-
+import javax.swing.JFileChooser;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 import rbit.machine.Track;
+import rbit.util.DataPath;
 
 class TrackInstrument extends JPanel {
     /**
@@ -40,6 +40,7 @@ class TrackInstrument extends JPanel {
         setPreferredSize(new Dimension(width, trackPanel.editor.trackHeight));
         setLayout(new GridBagLayout());
         
+        // volume slider
         this.volume = new JSlider(JSlider.HORIZONTAL, 3, 125, 100);
         this.volume.setBackground(color);
         this.volume.addChangeListener(new ChangeListener() {
@@ -47,17 +48,21 @@ class TrackInstrument extends JPanel {
                 volumeIndicator.setText(String.format("%.2f", track.setVolume(50f * (float) Math.log10((float)volume.getValue()/100))) + " dB");
             }
         });
+
+        // volume indicator
         this.volumeIndicator = new JLabel(String.format("%.2f", track.getVolume()) + " dB");
         this.volumeIndicator.setPreferredSize(new Dimension(70, 20));
         
+        // instrument name and change button
         this.instrument = new JLabel(parseInstrument(track.getInstrument()));
         this.instrument.setPreferredSize(new Dimension(width - 20, 20));
         this.instrument.addMouseListener(new MouseAdapter(){
             public void mousePressed(MouseEvent e) {
-                System.out.println("ganti instrumen");
+                changeInstrument();
             }
         });
 
+        // remove track button
         this.removeTrack = new JButton("X");
         this.removeTrack.setPreferredSize(new Dimension(20, 20));
         this.removeTrack.addActionListener(new ActionListener() {
@@ -102,16 +107,6 @@ class TrackInstrument extends JPanel {
         lower.add(volumeIndicator, c);
 
         setBackground(color);
-
-        addMouseListener(new MouseAdapter(){
-            public void mousePressed(MouseEvent e) {
-                // track.close();
-                // track.setInstrument("rbit/samples/toms/Tom Hi 606.wav");
-                // trackPanel.removeTrack();
-                trackPanel.editor.setSubTempo(trackPanel.editor.trackPanels.indexOf(trackPanel) + 1);
-                // trackPanel.editor.addTrack("none", 1);
-            }
-        });
     }
 
     String parseInstrument(String instrument) {
@@ -121,5 +116,18 @@ class TrackInstrument extends JPanel {
             }
         }
         return instrument;
+    }
+    void changeInstrument() {
+        JFileChooser fileChooser;
+        if (track.getInstrument().equals("")) {
+            fileChooser = new JFileChooser(".");
+        } else {
+            fileChooser = new JFileChooser(track.getInstrument());
+        }
+        int retVal = fileChooser.showOpenDialog(this.trackPanel.editor.session.screen);
+        if (retVal == JFileChooser.APPROVE_OPTION) {
+            track.setInstrument(DataPath.getPath(fileChooser.getSelectedFile()));
+            this.instrument.setText(parseInstrument(track.getInstrument()));
+        }
     }
 }

@@ -18,20 +18,23 @@ public class Track {
         this.machine = machine;
         this.part = part;
         this.bit = 0;
+        sample[0] = sample[1] = null;
         setInstrument(part.getInstrument());
     }
 
     public void setInstrument(String instrument) {
         synchronized (machine) {
-            close();
-            try {
-                sample[0] = AudioSystem.getClip();
-                sample[0].open(AudioSystem.getAudioInputStream(new File(instrument)));
-                sample[1] = AudioSystem.getClip();
-                sample[1].open(AudioSystem.getAudioInputStream(new File(instrument)));
-                part.setInstrument(instrument);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (!instrument.equals("")) {
+                close();
+                try {
+                    sample[0] = AudioSystem.getClip();
+                    sample[0].open(AudioSystem.getAudioInputStream(new File(instrument)));
+                    sample[1] = AudioSystem.getClip();
+                    sample[1].open(AudioSystem.getAudioInputStream(new File(instrument)));
+                    part.setInstrument(instrument);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

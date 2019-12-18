@@ -14,24 +14,24 @@ import rbit.machine.Machine;
 
 class Editor extends JPanel {
     final int trackHeight = 50;
-    Screen screen;
+    Session session;
     Machine machine;
     Vector<TrackPanel> trackPanels;
     JPanel instruments;
     JPanel patterns;
     JScrollPane scrollPane;
     BeatGuide beatGuide;
-    Editor(Screen screen, Machine machine) {
-        this.screen = screen;
+    Editor(Session session, Machine machine) {
+        this.session = session;
         this.machine = machine;
-        
-        
+
+
         // initializes tracks
         trackPanels = new Vector<>();
         for (int i = 0; i < machine.tracks.size(); i++) {
             trackPanels.add(new TrackPanel(this, machine.tracks.get(i)));
         }
-        
+
         // initializes panels
         beatGuide = new BeatGuide(this);
         instruments = new JPanel();
@@ -50,6 +50,12 @@ class Editor extends JPanel {
         fillEditorPane();
     }
 
+    void play() {
+        machine.play();
+    }
+    void stop() {
+        machine.stop();
+    }
     void removeTrack(TrackPanel trackPanel) {
         machine.removeTrack(trackPanels.indexOf(trackPanel));   // buang dari machiney
         instruments.remove(trackPanel.instrument);              // buang dari RowHeader ScrollPane
@@ -57,6 +63,9 @@ class Editor extends JPanel {
         trackPanels.remove(trackPanel);                         // buang dari trackPanels
         revalidate();
         repaint();
+    }
+    void addTrack(String instrument) {
+        addTrack(instrument, machine.tracks.size());
     }
     void addTrack(String instrument, int k) {
         trackPanels.insertElementAt(new TrackPanel(this, machine.addTrack(instrument, k)), k);
@@ -73,6 +82,12 @@ class Editor extends JPanel {
         revalidate();
         repaint();
     }
+    void setTempo(int tempo) {
+        machine.setTempo(tempo);
+    }
+    int getTempo() {
+        return machine.getTempo();
+    }
     void setSubTempo(int subTempo) {
         machine.setSubTempo(subTempo);
         for (TrackPanel track : trackPanels) {
@@ -81,6 +96,9 @@ class Editor extends JPanel {
         beatGuide.rebuild();
         revalidate();
         repaint();
+    }
+    int getSubTempo() {
+        return machine.getSubTempo();
     }
     
     // fills editor scrollable pane with tracks

@@ -13,10 +13,11 @@ public class Screen extends JFrame {
         setTitle("RBit");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1500, 800);
-        Editor editor = new Editor(this, machine);
-        add(editor);
+        Session session = new Session(this, machine);
+        add(session);
+        machine.stop();
         setVisible(true);
-        machine.play();
+        // machine.play();
         // try {
         //     Thread.sleep(3000);
         // } catch (Exception e) {

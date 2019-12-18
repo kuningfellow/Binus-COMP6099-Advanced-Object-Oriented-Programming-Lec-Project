@@ -1,5 +1,7 @@
 package rbit;
 
+import java.io.File;
+
 import rbit.display.Screen;
 import rbit.machine.Machine;
 
