@@ -17,16 +17,20 @@ class BeatGuide extends JPanel {
     void rebuild() {
         removeAll();
         GridBagConstraints c = new GridBagConstraints();
+        c.anchor = GridBagConstraints.WEST;
         c.gridx = c.gridy = 0;
-        for (int i = 0; i < editor.machine.getLength(); i++) {
-            for (int j = 0; j < (1 << editor.machine.getSubTempo()); j++) {
+        for (int i = 0; i < editor.getLength(); i++) {
+            for (int j = 0; j < (1 << editor.getSubTempo()); j++) {
+                if (i == editor.getLength() - 1 && j == (1 << editor.getSubTempo()) - 1) {
+                    c.weightx = 1;
+                }
                 JLabel beat = new JLabel();
                 if (j == 0) {
                     beat.setText((i+1) + "");
                 }
-                beat.setPreferredSize(new Dimension(256 / (1 << editor.machine.getSubTempo()), 20));
-                JLabel subBeat = new JLabel((j+1) + "/" + (1 << editor.machine.getSubTempo()));
-                subBeat.setPreferredSize(new Dimension(256 / (1 << editor.machine.getSubTempo()), 20));
+                beat.setPreferredSize(new Dimension(256 / (1 << editor.getSubTempo()), 20));
+                JLabel subBeat = new JLabel((j+1) + "/" + (1 << editor.getSubTempo()));
+                subBeat.setPreferredSize(new Dimension(256 / (1 << editor.getSubTempo()), 20));
                 c.gridy = 0;
                 add(beat, c);
                 c.gridy = 1;

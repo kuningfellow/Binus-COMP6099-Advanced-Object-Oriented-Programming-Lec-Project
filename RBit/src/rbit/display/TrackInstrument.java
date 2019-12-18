@@ -110,6 +110,9 @@ class TrackInstrument extends JPanel {
     }
 
     String parseInstrument(String instrument) {
+        if (instrument.equals("")) {
+            return "N/A";
+        }
         for (int i = instrument.length()-1; i >= 0; i--) {
             if (instrument.charAt(i) == '/' || instrument.charAt(i) == '\\') {
                 return instrument.substring(i+1, instrument.length());

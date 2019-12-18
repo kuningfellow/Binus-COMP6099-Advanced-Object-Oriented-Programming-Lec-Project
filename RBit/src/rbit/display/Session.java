@@ -22,7 +22,7 @@ public class Session extends JPanel {
     Screen screen;
     Editor editor;
     JButton addTrack, play, stop;
-    JSpinner tempo, subTempo;
+    JSpinner tempo, subTempo, length;
     public Session(Screen screen, Machine machine) {
         this.screen = screen;
         this.editor = new Editor(this, machine);
@@ -98,6 +98,13 @@ public class Session extends JPanel {
             this.subTempo.setValue("1/32");
         }
 
+        // length spinner
+        this.length = new JSpinner(new SpinnerNumberModel(editor.getLength(), 0, Integer.MAX_VALUE, 1));
+        this.length.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                editor.setLength((Integer) length.getValue());
+            }
+        });
 
         // Laying out the layout
         GridBagConstraints c = new GridBagConstraints();
@@ -105,10 +112,14 @@ public class Session extends JPanel {
         add(this.editor, c);
 
         JPanel lower = new JPanel();
+        lower.setPreferredSize(new Dimension(800, 50));
         lower.setLayout(new GridBagLayout());
         JPanel lowerLeft = new JPanel();
-        lowerLeft.setLayout(new GridLayout(1, 1));
+        lowerLeft.setLayout(new GridLayout(2, 1));
         lowerLeft.add(this.addTrack);
+        lowerLeft.add(this.length);
+        c.anchor = GridBagConstraints.WEST;
+        c.weightx = 0.5;
         lower.add(lowerLeft, c);
 
         JPanel lowerRight = new JPanel();
@@ -118,10 +129,12 @@ public class Session extends JPanel {
         lowerRight.add(this.play);
         lowerRight.add(this.stop);
         c.gridx = 1;
+        c.anchor = GridBagConstraints.EAST;
         lower.add(lowerRight, c);
 
         c.gridx = 0;
         c.gridy = 1;
+        c.anchor = GridBagConstraints.CENTER;
         add(lower, c);
     }
 }

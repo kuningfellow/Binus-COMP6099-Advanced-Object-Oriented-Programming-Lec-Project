@@ -57,10 +57,9 @@ class Editor extends JPanel {
         machine.stop();
     }
     void removeTrack(TrackPanel trackPanel) {
-        machine.removeTrack(trackPanels.indexOf(trackPanel));   // buang dari machiney
-        instruments.remove(trackPanel.instrument);              // buang dari RowHeader ScrollPane
-        patterns.remove(trackPanel.pattern);                    // buang dari ScrollPane
+        machine.removeTrack(trackPanels.indexOf(trackPanel));   // buang dari machine
         trackPanels.remove(trackPanel);                         // buang dari trackPanels
+        fillEditorPane();
         revalidate();
         repaint();
     }
@@ -81,6 +80,9 @@ class Editor extends JPanel {
         beatGuide.rebuild();
         revalidate();
         repaint();
+    }
+    int getLength() {
+        return machine.getLength();
     }
     void setTempo(int tempo) {
         machine.setTempo(tempo);
@@ -106,10 +108,15 @@ class Editor extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         instruments.removeAll();
         patterns.removeAll();
+        c.anchor = GridBagConstraints.NORTHWEST;
         c.gridx = 0;
         c.gridy = 0;
         for (int i = 0; i < trackPanels.size(); i++) {
             c.gridy = i;
+            if (i == trackPanels.size() - 1) {
+                c.weighty = 1;
+                c.weightx = 1;
+            }
             instruments.add(trackPanels.get(i).instrument, c);
             patterns.add(trackPanels.get(i).pattern, c);
         }
