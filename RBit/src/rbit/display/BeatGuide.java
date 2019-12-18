@@ -1,6 +1,8 @@
 package rbit.display;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.util.Vector;
 import java.awt.GridBagConstraints;
@@ -33,15 +35,23 @@ class BeatGuide extends JPanel {
                 if (i == editor.getLength() - 1 && j == (1 << editor.getSubTempo()) - 1) {
                     c.weightx = 1;
                 }
+                JPanel tmp = new JPanel();
+                tmp.setLayout(new FlowLayout(FlowLayout.LEFT));
                 JLabel beat = new JLabel();
+                tmp.add(beat);
                 if (j == 0) {
                     beat.setText((i+1) + "");
                 }
-                beat.setPreferredSize(new Dimension(256 / (1 << editor.getSubTempo()), 20));
+                if (i % 2 == 0) {
+                    tmp.setBackground(new Color(165, 165, 165)); 
+                } else {
+                    tmp.setBackground(new Color(179, 179, 179)); 
+                }
+                tmp.setPreferredSize(new Dimension(256 / (1 << editor.getSubTempo()), 20));
                 BeatGuideCell beatGuideCell = new BeatGuideCell(this, i, j);
                 beatGuideCells.get(i).add(beatGuideCell);
                 c.gridy = 0;
-                add(beat, c);
+                add(tmp, c);
                 c.gridy = 1;
                 add(beatGuideCell, c);
                 c.gridx++;
