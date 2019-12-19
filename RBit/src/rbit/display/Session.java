@@ -13,12 +13,19 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 
 import rbit.machine.Machine;
 
 public class Session extends JPanel {
+    /**
+     * Single session
+     */
+    TitleEditor titleEditor;
+    DescriptionEditor descriptionEditor;
+    TagEditor tagEditor;
     Screen screen;
     Editor editor;
     JButton addTrack, play, stop;
@@ -31,6 +38,15 @@ public class Session extends JPanel {
 
     void init() {
         setLayout(new GridBagLayout());
+
+        // titleEditor
+        this.titleEditor = new TitleEditor(editor);
+
+        // descriptionEditor
+        this.descriptionEditor = new DescriptionEditor(editor);
+
+        // tagEditor
+        this.tagEditor = new TagEditor(editor);
 
         // addTrack button
         this.addTrack = new JButton("Add Track");
@@ -109,8 +125,18 @@ public class Session extends JPanel {
         // Laying out the layout
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = c.gridy = 0;
+        // metadata section
+        add(this.titleEditor, c);
+        c.gridy = 1;
+        add(this.descriptionEditor, c);
+        c.gridy = 2;
+        add(this.tagEditor, c);
+
+        // editor section
+        c.gridy = 3;
         add(this.editor, c);
 
+        // lower section
         JPanel lower = new JPanel();
         lower.setPreferredSize(new Dimension(800, 50));
         lower.setLayout(new GridBagLayout());
@@ -133,7 +159,7 @@ public class Session extends JPanel {
         lower.add(lowerRight, c);
 
         c.gridx = 0;
-        c.gridy = 1;
+        c.gridy = 4;
         c.anchor = GridBagConstraints.CENTER;
         add(lower, c);
     }
