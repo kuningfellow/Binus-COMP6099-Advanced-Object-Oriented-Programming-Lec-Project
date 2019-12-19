@@ -1,8 +1,5 @@
 package rbit.display;
 
-import java.awt.Insets;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
@@ -23,7 +20,6 @@ class TrackPanel extends JPanel {
         pattern = new TrackPattern(editor, track);
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        // c.insets = new Insets(5, 0, 0, 0);
         c.gridx = c.gridy = 0;
         add(instrument, c);     // add the instrument panel
         c.gridx = 1;
