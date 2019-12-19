@@ -12,7 +12,7 @@ public class Screen extends JFrame {
     public Screen(Machine machine) {
         setTitle("RBit");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1500, 800);
+        setSize(1200, 700);
         Session session = new Session(this, machine);
         add(session);
         machine.stop();
