@@ -13,7 +13,7 @@ class TitleEditor extends JPanel {
     JTextArea textArea;
     TitleEditor(Editor editor) {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(800, 20));
+        setPreferredSize(new Dimension(300, 20));
         this.editor = editor;
         textArea = new JTextArea();
         scrollPane = new JScrollPane(textArea);

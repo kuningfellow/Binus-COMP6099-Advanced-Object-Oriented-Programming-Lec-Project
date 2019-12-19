@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -11,6 +12,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -125,15 +127,43 @@ public class Session extends JPanel {
         // Laying out the layout
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = c.gridy = 0;
+
         // metadata section
-        add(this.titleEditor, c);
+        JPanel upper = new JPanel();
+        upper.setLayout(new GridBagLayout());
+        upper.setPreferredSize(new Dimension(800, 110));
+        add(upper);
+        
+        JPanel upperUpper = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        // upperUpper.setLayout(new GridBagLayout());
+        upperUpper.setPreferredSize(new Dimension(800, 30));
+        JPanel upperLower = new JPanel();
+        upperLower.setLayout(new GridBagLayout());
+        upperLower.setPreferredSize(new Dimension(800, 80));
+
+        upper.add(upperUpper, c);
         c.gridy = 1;
-        add(this.descriptionEditor, c);
-        c.gridy = 2;
-        add(this.tagEditor, c);
+        upper.add(upperLower, c);
+
+        c.anchor = GridBagConstraints.WEST;
+        c.gridx = 0;
+        upperUpper.add(new JLabel("Title: "), c);
+        c.gridx = 1;
+        upperUpper.add(this.titleEditor, c);
+        
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 1;
+        upperLower.add(this.descriptionEditor, c);
+        c.gridx = 1;
+        c.weightx = 0;
+        upperLower.add(this.tagEditor, c);
 
         // editor section
-        c.gridy = 3;
+        c.weightx = 0;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridx = 0;
+        c.gridy = 2;
         add(this.editor, c);
 
         // lower section
@@ -159,7 +189,7 @@ public class Session extends JPanel {
         lower.add(lowerRight, c);
 
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 3;
         c.anchor = GridBagConstraints.CENTER;
         add(lower, c);
     }
