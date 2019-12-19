@@ -1,9 +1,11 @@
 package rbit.arrangement;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Part {
-    Arrangement arrangement;
+public class Part implements Serializable {
+	private static final long serialVersionUID = 1L;
+	Arrangement arrangement;
     String instrument;
     double volume;
     Vector<Integer> pattern;        // vector of beats. subdivisions are stored as bitmasks

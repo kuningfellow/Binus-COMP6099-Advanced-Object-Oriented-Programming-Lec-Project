@@ -3,6 +3,7 @@ package rbit.machine;
 import java.util.Vector;
 
 import rbit.arrangement.Arrangement;
+import rbit.arrangement.Part;
 
 public class Machine {
     Arrangement arrangement;
@@ -14,7 +15,18 @@ public class Machine {
         tracks = new Vector<>();
         player = null;
     }
+    public Machine(Arrangement arrangement) {
+        this.arrangement = arrangement;
+        tracks = new Vector<>();
+        for (int i = 0; i < arrangement.parts.size(); i++) {
+            addTrack(arrangement.parts.get(i));
+        }
+        player = null;
+    }
 
+    public Arrangement getArrangement() {
+        return arrangement;
+    }
     public int getTempo() {
         return arrangement.getTempo();
     }
@@ -62,6 +74,13 @@ public class Machine {
             k = Math.max(0, Math.min(tracks.size(), k));
             Track ret = new Track(this, arrangement.addPart(instrument, k));
             tracks.insertElementAt(ret, k);
+            return ret;
+        }
+    }
+    public Track addTrack(Part part) {
+        synchronized (this) {
+            Track ret = new Track(this, part);
+            tracks.add(ret);
             return ret;
         }
     }

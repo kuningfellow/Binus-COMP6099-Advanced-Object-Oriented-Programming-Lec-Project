@@ -123,7 +123,7 @@ class TrackInstrument extends JPanel {
     void changeInstrument() {
         JFileChooser fileChooser;
         if (track.getInstrument().equals("")) {
-            fileChooser = new JFileChooser(".");
+            fileChooser = new JFileChooser("src/rbit/samples/");
         } else {
             fileChooser = new JFileChooser(track.getInstrument());
         }

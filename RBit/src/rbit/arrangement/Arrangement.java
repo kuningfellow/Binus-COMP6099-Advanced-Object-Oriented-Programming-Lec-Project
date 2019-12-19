@@ -1,15 +1,21 @@
 package rbit.arrangement;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Arrangement {
+public class Arrangement implements Serializable {
+    private static final long serialVersionUID = 1L;
+    public String title, description, tags;
     public final int maxSubTempo = 5;
     int beatCount;      // how many beats there are in the arrangement
     int tempo;          // in beats per minute
     int subTempo;       // 2^subTempo beats in a beat
-    Vector<Part> parts;
+    public Vector<Part> parts;
 
     public Arrangement() {
+        title = "";
+        description = "";
+        tags = "";
         tempo = 128;
         beatCount = 4;
         subTempo = 2;

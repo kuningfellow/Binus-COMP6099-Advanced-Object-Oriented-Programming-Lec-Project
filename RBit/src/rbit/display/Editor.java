@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 
 import java.util.Vector;
 
+import rbit.arrangement.Arrangement;
 import rbit.machine.Machine;
 
 class Editor extends JPanel {
@@ -50,6 +51,9 @@ class Editor extends JPanel {
         fillEditorPane();
     }
 
+    Arrangement getArrangement() {
+        return machine.getArrangement();
+    }
     void play(int beat, int subBeat) {
         machine.play(beat, subBeat);
     }

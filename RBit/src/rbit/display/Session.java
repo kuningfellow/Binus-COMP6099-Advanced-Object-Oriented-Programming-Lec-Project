@@ -12,19 +12,23 @@ import java.awt.GridBagConstraints;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 
+import rbit.arrangement.Arrangement;
 import rbit.machine.Machine;
+import rbit.util.DataBase;
+import rbit.util.DataPath;
 
 public class Session extends JPanel {
     /**
      * Single session
      */
+    String path;
     TitleEditor titleEditor;
     DescriptionEditor descriptionEditor;
     TagEditor tagEditor;
@@ -32,12 +36,41 @@ public class Session extends JPanel {
     Editor editor;
     JButton addTrack, play, stop;
     JSpinner tempo, subTempo, length;
-    public Session(Screen screen, Machine machine) {
+    public Session(Screen screen, String path) {
         this.screen = screen;
-        this.editor = new Editor(this, machine);
+        this.path = path;
+        this.editor = new Editor(this, new Machine(DataBase.getArrangement(path)));
+        init();
+    }
+    public Session(Screen screen) {
+        this.screen = screen;
+        this.path = "";
+        this.editor = new Editor(this, new Machine());
         init();
     }
 
+    void save() {
+        if (!path.equals("")) {
+            DataBase.saveFile(path, editor.getArrangement());
+            DataBase.update(path, editor.getArrangement());
+        } else {
+            saveAs();
+        }
+    }
+    void saveAs() {
+        JFileChooser fileChooser = new JFileChooser("src/rbit/presets/");
+        int retVal = fileChooser.showSaveDialog(screen);
+        if (retVal == JFileChooser.APPROVE_OPTION) {
+            path = DataPath.getPath(fileChooser.getSelectedFile());
+            DataBase.saveFile(path, editor.getArrangement());
+            DataBase.insert(path, editor.getArrangement());
+            screen.openSession(path);
+        }
+    }
+    void close() {
+        editor.stop();
+    }
+    
     void init() {
         setLayout(new GridBagLayout());
 
