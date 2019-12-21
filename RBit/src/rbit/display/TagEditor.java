@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 class TagEditor extends JPanel {
     Editor editor;
@@ -28,10 +30,25 @@ class TagEditor extends JPanel {
         tmp.add(new JLabel("Tags:"));
         add(tmp, c);
 
-
         JPanel ttmp = new JPanel();
         ttmp.setLayout(new BorderLayout());
         textArea = new JTextArea();
+        textArea.getDocument().addDocumentListener(new DocumentListener(){
+        
+            @Override
+            public void removeUpdate(DocumentEvent arg0) {
+                editor.getArrangement().tags = textArea.getText();
+            }
+        
+            @Override
+            public void insertUpdate(DocumentEvent arg0) {
+                editor.getArrangement().tags = textArea.getText();
+            }
+        
+            @Override
+            public void changedUpdate(DocumentEvent arg0) {
+            }
+        });
         scrollPane = new JScrollPane(textArea);
         ttmp.add(scrollPane);
         ttmp.setPreferredSize(new Dimension(300, 50));

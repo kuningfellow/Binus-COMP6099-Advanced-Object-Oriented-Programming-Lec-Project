@@ -67,6 +67,7 @@ class TrackInstrument extends JPanel {
         this.removeTrack.setPreferredSize(new Dimension(20, 20));
         this.removeTrack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                trackPanel.editor.session.screen.requestFocusInWindow();
                 trackPanel.removeTrack();
             }
         });

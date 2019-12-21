@@ -5,18 +5,35 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 class TitleEditor extends JPanel {
     Editor editor;
     JScrollPane scrollPane;
-    JTextArea textArea;
+    JTextField textField;
     TitleEditor(Editor editor) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 20));
         this.editor = editor;
-        textArea = new JTextArea();
-        scrollPane = new JScrollPane(textArea);
-        add(scrollPane);
+        textField = new JTextField();
+        textField.getDocument().addDocumentListener(new DocumentListener(){
+            
+            @Override
+            public void removeUpdate(DocumentEvent arg0) {
+                editor.getArrangement().title = textField.getText();
+            }
+            
+            @Override
+            public void insertUpdate(DocumentEvent arg0) {
+                editor.getArrangement().title = textField.getText();
+            }
+            
+            @Override
+            public void changedUpdate(DocumentEvent arg0) {
+            }
+        });
+        add(textField);
     }
 }

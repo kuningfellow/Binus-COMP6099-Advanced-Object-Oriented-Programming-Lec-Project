@@ -62,10 +62,15 @@ public class Track {
     }
     public float setVolume(float volume) {
         part.setVolume(volume);
-        FloatControl gainControl = (FloatControl) sample[0].getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(volume);
-        gainControl = (FloatControl) sample[1].getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(volume);
+        FloatControl gainControl;
+        if (sample[0] != null) {
+            gainControl = (FloatControl) sample[0].getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(volume);
+        }
+        if (sample[1] != null) {
+            gainControl = (FloatControl) sample[1].getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(volume);
+        }
         return volume;
     }
 

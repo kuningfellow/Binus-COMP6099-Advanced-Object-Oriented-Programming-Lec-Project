@@ -26,8 +26,9 @@ class PatternCell extends JPanel {
         } else {
             setBackground(Color.PINK);
         }
-        addMouseListener(new MouseAdapter(){
+        addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
+                trackPattern.editor.session.screen.requestFocusInWindow();
                 if (track.togglePattern(beat, subBeat)) {
                     setBackground(Color.GREEN);
                 } else {

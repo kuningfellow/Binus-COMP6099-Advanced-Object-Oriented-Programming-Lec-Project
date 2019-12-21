@@ -4,6 +4,8 @@ import java.awt.Insets;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,6 +45,11 @@ class Editor extends JPanel {
         scrollPane.setPreferredSize(new Dimension(800, 400));
         scrollPane.setRowHeaderView(instruments);
         scrollPane.setColumnHeaderView(beatGuide);
+        scrollPane.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                session.screen.requestFocusInWindow();
+            }
+        });
 
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();

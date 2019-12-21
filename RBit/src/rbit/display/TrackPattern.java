@@ -1,8 +1,6 @@
 package rbit.display;
 
 import java.awt.Insets;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
