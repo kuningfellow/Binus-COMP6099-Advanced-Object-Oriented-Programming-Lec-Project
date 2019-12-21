@@ -33,15 +33,18 @@ class DescriptionEditor extends JPanel {
         JPanel ttmp = new JPanel();
         ttmp.setLayout(new BorderLayout());
         textArea = new JTextArea();
+        textArea.setText(editor.getArrangement().description);
         textArea.getDocument().addDocumentListener(new DocumentListener(){
         
             @Override
             public void removeUpdate(DocumentEvent arg0) {
+                editor.session.isModified = true;
                 editor.getArrangement().description = textArea.getText();
             }
         
             @Override
             public void insertUpdate(DocumentEvent arg0) {
+                editor.session.isModified = true;
                 editor.getArrangement().description = textArea.getText();
             }
         

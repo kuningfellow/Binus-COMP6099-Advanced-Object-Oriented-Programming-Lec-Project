@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,17 +46,23 @@ public class Screen extends JFrame {
         JMenuItem arrangementNew = new JMenuItem("New");
         arrangementNew.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                newSession();
+                if (promptIfUnsaved()) {
+                    newSession();
+                    requestFocusInWindow();
+                }
             }
         });
 
         JMenuItem arrangementOpen = new JMenuItem("Open");
         arrangementOpen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser("src/rbit/presets/");
-                int retVal = fileChooser.showOpenDialog(ini);
-                if (retVal == JFileChooser.APPROVE_OPTION) {
-                    openSession(DataPath.getPath(fileChooser.getSelectedFile()));
+                if (promptIfUnsaved()) {
+                    JFileChooser fileChooser = new JFileChooser("src/rbit/presets/");
+                    int retVal = fileChooser.showOpenDialog(ini);
+                    if (retVal == JFileChooser.APPROVE_OPTION) {
+                        openSession(DataPath.getPath(fileChooser.getSelectedFile()));
+                    }
+                    requestFocusInWindow();
                 }
             }
         });
@@ -68,12 +75,15 @@ public class Screen extends JFrame {
                 }
             }
         });
-
+        
         JMenuItem arrangementSaveAs = new JMenuItem("Save As");
         arrangementSaveAs.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (session != null) {
-                    session.saveAs();
+                    String path = session.saveAs();
+                    if (!path.equals("")) {
+                        openSession(path);
+                    }
                 }
             }
         });
@@ -89,24 +99,45 @@ public class Screen extends JFrame {
         add(searchPanel, c);
         c.gridx = 1;
         setVisible(true);
+        requestFocusInWindow();
         newSession();
     }
+
     void openSession(String path) {
-        if (session != null) {
-            remove(session);
-            session.close();
-        }
+        removeSession();
         session = new Session(this, path);
         add(session, c);
         setVisible(true);
     }
     void newSession() {
-        if (session != null) {
-            remove(session);
-            session.close();
-        }
+        removeSession();
         session = new Session(this);
         add(session, c);
         setVisible(true);
+    }
+    void removeSession() {
+        if (session != null) {
+            session.close();
+            remove(session);
+        }
+    }
+    boolean promptIfUnsaved() {
+        if (session == null) return true;
+        if (session.isModified == true) {
+            Object[] options = {"Yes", "No", "Cancel"};
+            int response = JOptionPane.showOptionDialog(this,
+                "Do you want to save changes you made to this arrangement",
+                "Warning: Arrangement not saved",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+            if (response == JOptionPane.YES_OPTION) {
+                return session.save();
+            } else if (response == JOptionPane.NO_OPTION) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
     }
 }

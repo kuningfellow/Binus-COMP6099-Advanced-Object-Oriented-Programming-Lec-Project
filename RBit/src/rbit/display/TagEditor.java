@@ -33,15 +33,18 @@ class TagEditor extends JPanel {
         JPanel ttmp = new JPanel();
         ttmp.setLayout(new BorderLayout());
         textArea = new JTextArea();
+        textArea.setText(editor.getArrangement().tags);
         textArea.getDocument().addDocumentListener(new DocumentListener(){
         
             @Override
             public void removeUpdate(DocumentEvent arg0) {
+                editor.session.isModified = true;
                 editor.getArrangement().tags = textArea.getText();
             }
         
             @Override
             public void insertUpdate(DocumentEvent arg0) {
+                editor.session.isModified = true;
                 editor.getArrangement().tags = textArea.getText();
             }
         
