@@ -22,6 +22,7 @@ class BeatGuideCell extends JPanel {
         this.subBeat = subBeat;
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
+                beatGuide.editor.session.screen.requestFocusInWindow();
                 beatGuide.unmark();
                 beatGuide.startBeat = beat;
                 beatGuide.startSubBeat = subBeat;
