@@ -63,7 +63,15 @@ public class DataBase {
             statement.setString(1, path);
             statement.setString(2, arrangement.title);
             statement.setString(3, arrangement.description);
-            statement.setString(4, arrangement.tags);
+            String tags = "";
+            for (int i = 0; i < arrangement.tags.length(); i++) {
+                if (arrangement.tags.charAt(i) == '\n' || arrangement.tags.charAt(i) == '\r') {
+                    tags += " ";
+                } else {
+                    tags += arrangement.tags.charAt(i);
+                }
+            }
+            statement.setString(4, tags);
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +83,15 @@ public class DataBase {
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, arrangement.title);
             statement.setString(2, arrangement.description);
-            statement.setString(3, arrangement.tags);
+            String tags = "";
+            for (int i = 0; i < arrangement.tags.length(); i++) {
+                if (arrangement.tags.charAt(i) == '\n' || arrangement.tags.charAt(i) == '\r') {
+                    tags += " ";
+                } else {
+                    tags += arrangement.tags.charAt(i);
+                }
+            }
+            statement.setString(3, tags);
             statement.setString(4, path);
             statement.executeUpdate();
         } catch (Exception e) {
