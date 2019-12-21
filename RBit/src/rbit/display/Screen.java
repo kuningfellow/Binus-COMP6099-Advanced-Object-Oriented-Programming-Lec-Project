@@ -15,7 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
-import rbit.util.DataBase;
+import rbit.database.DataBase;
+import rbit.database.SearchEngine;
 import rbit.util.DataPath;
 
 public class Screen extends JFrame {
@@ -26,6 +27,7 @@ public class Screen extends JFrame {
     public Screen() {
         DataBase.init();
         // DataBase.rebuild();
+        new SearchEngine();
         setTitle("RBit");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());

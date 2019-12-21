@@ -1,9 +1,10 @@
-package rbit.util;
+package rbit.database;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.Vector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -65,13 +66,13 @@ public class DataBase {
             statement.setString(3, arrangement.description);
             String tags = "";
             for (int i = 0; i < arrangement.tags.length(); i++) {
-                if (arrangement.tags.charAt(i) == '\n' || arrangement.tags.charAt(i) == '\r') {
+                if (arrangement.tags.charAt(i) == '\n' || arrangement.tags.charAt(i) == '\r' || arrangement.tags.charAt(i) == '\t') {
                     tags += " ";
                 } else {
                     tags += arrangement.tags.charAt(i);
                 }
             }
-            statement.setString(4, tags);
+            statement.setString(4, " " + tags + " ");
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,13 +86,13 @@ public class DataBase {
             statement.setString(2, arrangement.description);
             String tags = "";
             for (int i = 0; i < arrangement.tags.length(); i++) {
-                if (arrangement.tags.charAt(i) == '\n' || arrangement.tags.charAt(i) == '\r') {
+                if (arrangement.tags.charAt(i) == '\n' || arrangement.tags.charAt(i) == '\r' || arrangement.tags.charAt(i) == '\t') {
                     tags += " ";
                 } else {
                     tags += arrangement.tags.charAt(i);
                 }
             }
-            statement.setString(3, tags);
+            statement.setString(3, " " + tags + " ");
             statement.setString(4, path);
             statement.executeUpdate();
         } catch (Exception e) {
@@ -107,6 +108,27 @@ public class DataBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static Vector<SearchResult> search(Vector<String> tags) {
+        Vector<SearchResult> result = new Vector<>();
+        try {
+            String query = "SELECT * FROM ARRANGEMENTS WHERE ";
+            for (int i = 0; i < tags.size(); i++) {
+                if (i != 0) query += " or ";
+                query += "tags like ?";
+            }
+            PreparedStatement statement = conn.prepareStatement(query);
+            for (int i = 0; i < tags.size(); i++) {
+                statement.setString(i+1, "% " + tags.get(i) + " %");
+            }
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                result.add(new SearchResult(rs.getString("path"), rs.getString("title"), rs.getString("description"), rs.getString("tags")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
     public static void saveFile(String path, Arrangement arrangement) {
         try {

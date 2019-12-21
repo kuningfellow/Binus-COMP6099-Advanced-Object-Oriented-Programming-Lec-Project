@@ -20,7 +20,7 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 
 import rbit.machine.Machine;
-import rbit.util.DataBase;
+import rbit.database.DataBase;
 import rbit.util.DataPath;
 
 public class Session extends JPanel {
