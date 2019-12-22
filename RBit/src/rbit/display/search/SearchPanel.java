@@ -6,8 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -25,7 +23,7 @@ public class SearchPanel extends JPanel {
         searchEngine = new SearchEngine();
         searchQuery = new SearchQuery(this, searchEngine);
         searchEntries = new Vector<>();
-        
+
         setPreferredSize(new Dimension(250, 500));
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();

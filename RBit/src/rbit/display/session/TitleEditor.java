@@ -20,19 +20,19 @@ class TitleEditor extends JPanel {
         textField = new JTextField();
         textField.setText(editor.getArrangement().title);
         textField.getDocument().addDocumentListener(new DocumentListener(){
-            
+
             @Override
             public void removeUpdate(DocumentEvent arg0) {
                 editor.session.edited = true;
                 editor.getArrangement().title = textField.getText();
             }
-            
+
             @Override
             public void insertUpdate(DocumentEvent arg0) {
                 editor.session.edited = true;
                 editor.getArrangement().title = textField.getText();
             }
-            
+
             @Override
             public void changedUpdate(DocumentEvent arg0) {
             }

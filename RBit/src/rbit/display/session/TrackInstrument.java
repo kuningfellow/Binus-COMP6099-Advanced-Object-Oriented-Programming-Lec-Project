@@ -39,7 +39,7 @@ class TrackInstrument extends JPanel {
 
         setPreferredSize(new Dimension(width, trackPanel.editor.trackHeight));
         setLayout(new GridBagLayout());
-        
+
         // volume slider
         this.volume = new JSlider(JSlider.HORIZONTAL, 3, 125, 100);
         this.volume.setBackground(color);
@@ -52,7 +52,7 @@ class TrackInstrument extends JPanel {
         // volume indicator
         this.volumeIndicator = new JLabel(String.format("%.2f", track.getVolume()) + " dB");
         this.volumeIndicator.setPreferredSize(new Dimension(70, 20));
-        
+
         // instrument name and change button
         this.instrument = new JLabel(parseInstrument(track.getInstrument()));
         this.instrument.setPreferredSize(new Dimension(width - 20, 20));
@@ -71,24 +71,24 @@ class TrackInstrument extends JPanel {
                 trackPanel.removeTrack();
             }
         });
-        
+
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = c.gridy = 0;
-        
+
         // create upper part
         JPanel upper = new JPanel();
         upper.setLayout(new GridBagLayout());
         upper.setPreferredSize(new Dimension(width, 20));
         upper.setBackground(color);
         add(upper, c);
-        
+
         // create lower part
         JPanel lower = new JPanel();
         lower.setLayout(new GridBagLayout());
         lower.setPreferredSize(new Dimension(width, 20));
         lower.setBackground(color);
         c.gridy = 1; add(lower, c);
-        
+
         c.gridy = 0;
         c.gridx = 0; upper.add(instrument, c);
         c.gridx = 1; upper.add(removeTrack, c);

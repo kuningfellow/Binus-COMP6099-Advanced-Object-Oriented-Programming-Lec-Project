@@ -81,7 +81,7 @@ public class Session extends JPanel {
     public void close() {
         editor.stop();
     }
-    
+
     void init() {
         setLayout(new GridBagLayout());
 
@@ -181,7 +181,7 @@ public class Session extends JPanel {
         upper.setLayout(new GridBagLayout());
         upper.setPreferredSize(new Dimension(800, 110));
         add(upper);
-        
+
         JPanel upperUpper = new JPanel(new FlowLayout(FlowLayout.LEFT));
         // upperUpper.setLayout(new GridBagLayout());
         upperUpper.setPreferredSize(new Dimension(800, 30));
@@ -198,7 +198,7 @@ public class Session extends JPanel {
         upperUpper.add(new JLabel("Title: "), c);
         c.gridx = 1;
         upperUpper.add(this.titleEditor, c);
-        
+
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 1;

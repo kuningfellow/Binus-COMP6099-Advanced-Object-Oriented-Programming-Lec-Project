@@ -25,7 +25,7 @@ public class Part implements Serializable {
             pattern.add(0);
         }
     }
-    
+
     int getBit(int subBeat) {
         return 1 << (subBeat * ( 1 << (arrangement.maxSubTempo-arrangement.subTempo) ) );
     }

@@ -7,13 +7,10 @@ import java.awt.GridBagConstraints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 import rbit.database.SearchResult;
-import rbit.util.DataPath;
 
 class SearchEntry extends JPanel {
     SearchPanel searchPanel;
@@ -23,7 +20,6 @@ class SearchEntry extends JPanel {
         this.searchResult = searchResult;
         JLabel title = new JLabel(searchResult.getTitle());
         JLabel description = new JLabel(searchResult.getDescription());
-        JLabel tags = new JLabel(searchResult.getTags());
 
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -35,8 +31,6 @@ class SearchEntry extends JPanel {
         c.weighty = 1;
         add(description, c);
         setBackground(new Color(86, 134, 140));
-        // c.gridx = 2;
-        // add(tags, c);
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 if (searchPanel.screen.promptIfUnsaved()) {

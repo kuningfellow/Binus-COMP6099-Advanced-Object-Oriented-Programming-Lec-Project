@@ -1,6 +1,5 @@
 package rbit.display;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -14,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 import rbit.database.DataBase;
 import rbit.database.SearchEngine;
@@ -79,7 +79,7 @@ public class Screen extends JFrame {
                 }
             }
         });
-        
+
         JMenuItem arrangementSaveAs = new JMenuItem("Save As");
         arrangementSaveAs.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -100,6 +100,7 @@ public class Screen extends JFrame {
         setJMenuBar(menuBar);
 
         this.searchPanel = new SearchPanel(this);
+        c.insets = new Insets(0, 10, 0, 10);
         add(searchPanel, c);
         c.gridx = 1;
         setVisible(true);

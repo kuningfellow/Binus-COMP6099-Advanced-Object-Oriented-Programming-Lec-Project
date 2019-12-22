@@ -113,7 +113,7 @@ class Editor extends JPanel {
     int getSubTempo() {
         return machine.getSubTempo();
     }
-    
+
     // fills editor scrollable pane with tracks
     void fillEditorPane() {
         GridBagConstraints c = new GridBagConstraints();

@@ -43,9 +43,9 @@ class BeatGuide extends JPanel {
                     beat.setText((i+1) + "");
                 }
                 if (i % 2 == 0) {
-                    tmp.setBackground(new Color(165, 165, 165)); 
+                    tmp.setBackground(new Color(165, 165, 165));
                 } else {
-                    tmp.setBackground(new Color(179, 179, 179)); 
+                    tmp.setBackground(new Color(179, 179, 179));
                 }
                 tmp.setPreferredSize(new Dimension(256 / (1 << editor.getSubTempo()), 20));
                 BeatGuideCell beatGuideCell = new BeatGuideCell(this, i, j);
