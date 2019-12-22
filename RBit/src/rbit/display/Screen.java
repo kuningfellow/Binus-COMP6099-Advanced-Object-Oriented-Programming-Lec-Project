@@ -19,6 +19,7 @@ import rbit.database.DataBase;
 import rbit.database.SearchEngine;
 import rbit.util.DataPath;
 import rbit.display.session.Session;
+import rbit.display.search.SearchPanel;
 
 public class Screen extends JFrame {
     Screen ini;
@@ -98,15 +99,14 @@ public class Screen extends JFrame {
         arrangementMenu.add(arrangementSaveAs);
         setJMenuBar(menuBar);
 
-        this.searchPanel = new SearchPanel();
+        this.searchPanel = new SearchPanel(this);
         add(searchPanel, c);
         c.gridx = 1;
         setVisible(true);
         requestFocusInWindow();
         newSession();
     }
-
-    void openSession(String path) {
+    public void openSession(String path) {
         removeSession();
         session = new Session(this, path);
         add(session, c);
@@ -124,7 +124,7 @@ public class Screen extends JFrame {
             remove(session);
         }
     }
-    boolean promptIfUnsaved() {
+    public boolean promptIfUnsaved() {
         if (session == null) return true;
         if (session.isModified() == true) {
             Object[] options = {"Yes", "No", "Cancel"};

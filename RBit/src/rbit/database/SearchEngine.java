@@ -3,10 +3,10 @@ package rbit.database;
 import java.util.Vector;
 
 public class SearchEngine {
-    Vector<SearchResult> results;
+    public Vector<SearchResult> results = new Vector<>();
     public SearchEngine() {
     }
-    void search(String query) {
+    public void search(String query) {
         Vector<String> tags = new Vector<>();
         String tag = "";
         for (int i = 0; i < query.length(); i++) {
