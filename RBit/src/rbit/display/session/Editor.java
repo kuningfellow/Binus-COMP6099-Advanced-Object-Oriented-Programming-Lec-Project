@@ -1,4 +1,4 @@
-package rbit.display;
+package rbit.display.session;
 
 import java.awt.Insets;
 import java.awt.Dimension;

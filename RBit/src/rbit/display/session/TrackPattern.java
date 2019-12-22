@@ -1,4 +1,4 @@
-package rbit.display;
+package rbit.display.session;
 
 import java.awt.Insets;
 import java.awt.GridBagLayout;
@@ -12,11 +12,11 @@ import rbit.machine.Track;
 
 // Contains pattern of a track
 class TrackPattern extends JPanel {
-    Editor editor;
+    TrackPanel trackPanel;
     Track track;
     Vector<Vector<PatternCell> > pattern;
-    TrackPattern(Editor editor, Track track) {
-        this.editor = editor;
+    TrackPattern(TrackPanel trackPanel, Track track) {
+        this.trackPanel = trackPanel;
         this.track = track;
         pattern = new Vector<>();
         setLayout(new GridBagLayout());

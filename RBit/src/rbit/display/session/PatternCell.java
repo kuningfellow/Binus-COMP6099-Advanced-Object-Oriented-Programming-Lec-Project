@@ -1,4 +1,4 @@
-package rbit.display;
+package rbit.display.session;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,7 +16,7 @@ class PatternCell extends JPanel {
     Track track;
     int beat, subBeat;
     PatternCell(TrackPattern trackPattern, Track track, int beat, int subBeat) {
-        setPreferredSize(new Dimension((256 - 32) / (1 << track.getSubTempo()), trackPattern.editor.trackHeight));
+        setPreferredSize(new Dimension((256 - 32) / (1 << track.getSubTempo()), trackPattern.trackPanel.editor.trackHeight));
         this.trackPattern = trackPattern;
         this.track = track;
         this.beat = beat;
@@ -28,8 +28,8 @@ class PatternCell extends JPanel {
         }
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                trackPattern.editor.session.screen.requestFocusInWindow();
-                trackPattern.editor.session.isModified = true;
+                trackPattern.trackPanel.editor.session.screen.requestFocusInWindow();
+                trackPattern.trackPanel.editor.session.edited = true;
                 if (track.togglePattern(beat, subBeat)) {
                     setBackground(Color.GREEN);
                 } else {

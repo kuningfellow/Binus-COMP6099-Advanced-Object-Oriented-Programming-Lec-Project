@@ -18,6 +18,7 @@ import java.awt.GridBagConstraints;
 import rbit.database.DataBase;
 import rbit.database.SearchEngine;
 import rbit.util.DataPath;
+import rbit.display.session.Session;
 
 public class Screen extends JFrame {
     Screen ini;
@@ -125,7 +126,7 @@ public class Screen extends JFrame {
     }
     boolean promptIfUnsaved() {
         if (session == null) return true;
-        if (session.isModified == true) {
+        if (session.isModified() == true) {
             Object[] options = {"Yes", "No", "Cancel"};
             int response = JOptionPane.showOptionDialog(this,
                 "Do you want to save changes you made to this arrangement",

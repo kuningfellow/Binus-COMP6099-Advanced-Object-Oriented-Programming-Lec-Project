@@ -1,4 +1,4 @@
-package rbit.display;
+package rbit.display.session;
 
 import java.awt.Color;
 import java.awt.Dimension;

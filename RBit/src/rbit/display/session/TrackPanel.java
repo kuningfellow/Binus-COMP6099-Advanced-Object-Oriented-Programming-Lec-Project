@@ -1,4 +1,4 @@
-package rbit.display;
+package rbit.display.session;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -17,7 +17,7 @@ class TrackPanel extends JPanel {
         this.editor = editor;
         this.track = track;
         instrument = new TrackInstrument(this, track);
-        pattern = new TrackPattern(editor, track);
+        pattern = new TrackPattern(this, track);
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = c.gridy = 0;

@@ -1,4 +1,4 @@
-package rbit.display;
+package rbit.display.session;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
@@ -38,13 +38,13 @@ class TagEditor extends JPanel {
         
             @Override
             public void removeUpdate(DocumentEvent arg0) {
-                editor.session.isModified = true;
+                editor.session.edited = true;
                 editor.getArrangement().tags = textArea.getText();
             }
         
             @Override
             public void insertUpdate(DocumentEvent arg0) {
-                editor.session.isModified = true;
+                editor.session.edited = true;
                 editor.getArrangement().tags = textArea.getText();
             }
         

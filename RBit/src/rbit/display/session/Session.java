@@ -1,4 +1,4 @@
-package rbit.display;
+package rbit.display.session;
 
 import java.util.Arrays;
 import java.awt.Dimension;
@@ -22,6 +22,7 @@ import javax.swing.SpinnerNumberModel;
 import rbit.machine.Machine;
 import rbit.database.DataBase;
 import rbit.util.DataPath;
+import rbit.display.Screen;
 
 public class Session extends JPanel {
     /**
@@ -35,46 +36,49 @@ public class Session extends JPanel {
     Editor editor;
     JButton addTrack, play, stop;
     JSpinner tempo, subTempo, length;
-    boolean isModified;
+    boolean edited;
     public Session(Screen screen, String path) {
         this.screen = screen;
-        this.isModified = false;
+        this.edited = false;
         this.path = path;
         this.editor = new Editor(this, new Machine(DataBase.getArrangement(path)));
         init();
     }
     public Session(Screen screen) {
         this.screen = screen;
-        this.isModified = false;
+        this.edited = false;
         this.path = "";
         this.editor = new Editor(this, new Machine());
         init();
     }
 
-    boolean save() {
+    public boolean isModified() {
+        return edited;
+    }
+    public boolean save() {
         if (!path.equals("")) {
             DataBase.saveFile(path, editor.getArrangement());
             DataBase.update(path, editor.getArrangement());
-            isModified = false;
+            edited = false;
             return true;
         } else {
             return !saveAs().equals("");
         }
     }
-    String saveAs() {
+    public String saveAs() {
         JFileChooser fileChooser = new JFileChooser("src/rbit/presets/");
         int retVal = fileChooser.showSaveDialog(screen);
         if (retVal == JFileChooser.APPROVE_OPTION) {
             path = DataPath.getPath(fileChooser.getSelectedFile());
             DataBase.saveFile(path, editor.getArrangement());
             DataBase.insert(path, editor.getArrangement());
-            isModified = false;
+            edited = false;
             return path;
         }
         return "";
     }
 
-    void close() {
+    public void close() {
         editor.stop();
     }
     
@@ -94,7 +98,7 @@ public class Session extends JPanel {
         this.addTrack = new JButton("Add Track");
         this.addTrack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                isModified = true;
+                edited = true;
                 editor.addTrack("");
             }
         });
@@ -120,7 +124,7 @@ public class Session extends JPanel {
         this.tempo.setValue(editor.getTempo());
         this.tempo.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                isModified = true;
+                edited = true;
                 editor.setTempo((Integer) tempo.getValue());
             }
         });
@@ -142,7 +146,7 @@ public class Session extends JPanel {
         }
         this.subTempo.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                isModified = true;
+                edited = true;
                 if (subTempo.getValue().equals("1/1")) {
                     editor.setSubTempo(0);
                 } else if (subTempo.getValue().equals("1/2")) {
@@ -163,7 +167,7 @@ public class Session extends JPanel {
         this.length = new JSpinner(new SpinnerNumberModel(editor.getLength(), 0, Integer.MAX_VALUE, 1));
         this.length.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                isModified = true;
+                edited = true;
                 editor.setLength((Integer) length.getValue());
             }
         });

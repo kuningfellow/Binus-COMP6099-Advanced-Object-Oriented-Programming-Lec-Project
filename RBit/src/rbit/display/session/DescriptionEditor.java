@@ -1,4 +1,4 @@
-package rbit.display;
+package rbit.display.session;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
@@ -38,13 +38,13 @@ class DescriptionEditor extends JPanel {
         
             @Override
             public void removeUpdate(DocumentEvent arg0) {
-                editor.session.isModified = true;
+                editor.session.edited = true;
                 editor.getArrangement().description = textArea.getText();
             }
         
             @Override
             public void insertUpdate(DocumentEvent arg0) {
-                editor.session.isModified = true;
+                editor.session.edited = true;
                 editor.getArrangement().description = textArea.getText();
             }
         
