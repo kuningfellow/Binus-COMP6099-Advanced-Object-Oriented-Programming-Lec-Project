@@ -1,6 +1,5 @@
 package rbit.display.session;
 
-import java.awt.Insets;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
