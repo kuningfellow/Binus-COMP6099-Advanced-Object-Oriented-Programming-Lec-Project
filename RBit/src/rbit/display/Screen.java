@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.nio.file.Paths;
 import java.awt.event.MouseAdapter;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -28,7 +30,6 @@ public class Screen extends JFrame {
     GridBagConstraints c;
     public Screen() {
         DataBase.init();
-        // DataBase.rebuild();
         new SearchEngine();
         setTitle("RBit");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,6 +47,7 @@ public class Screen extends JFrame {
         JMenuBar menuBar = new JMenuBar();
 
         JMenu arrangementMenu = new JMenu("Arrangement");
+        JMenu databaseMenu = new JMenu("Database");
 
         JMenuItem arrangementNew = new JMenuItem("New");
         arrangementNew.addActionListener(new ActionListener() {
@@ -92,11 +94,26 @@ public class Screen extends JFrame {
             }
         });
 
+        JMenuItem databaseRescan = new JMenuItem("Rescan");
+        databaseRescan.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // rebuild and rescan database
+                DataBase.rebuild();
+                String dir = Paths.get(new File("").getAbsolutePath()).resolve("src/rbit/presets").toString();
+                for (String pathname : new File(dir).list()) {
+                    String path = "src/rbit/presets/" + pathname;
+                    DataBase.insert(path, DataBase.getArrangement(path));
+                }
+            }
+        });
+
         menuBar.add(arrangementMenu);
+        menuBar.add(databaseMenu);
         arrangementMenu.add(arrangementNew);
         arrangementMenu.add(arrangementOpen);
         arrangementMenu.add(arrangementSave);
         arrangementMenu.add(arrangementSaveAs);
+        databaseMenu.add(databaseRescan);
         setJMenuBar(menuBar);
 
         this.searchPanel = new SearchPanel(this);
